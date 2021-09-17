@@ -1,0 +1,19 @@
+{
+  "name": "concordance",
+  "version": "1.0.0",
+  "description": "An art project based on the short story \"A Concordance of One's Life\" by Jim Nelson. (using three.js and p5.js)",
+  "main": "index.js",
+  "scripts": {
+    "start": "snowpack dev",
+    "build": "snowpack build"
+  },
+  "keywords": [],
+  "author": "Brendon Zimmer",
+  "license": "UNLICENSED",
+  "devDependencies": {
+    "snowpack": "^3.8.8"
+  },
+  "dependencies": {
+    "three": "^0.124.0"
+  }
+}
