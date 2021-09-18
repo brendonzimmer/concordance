@@ -20,6 +20,9 @@ let mouseX = 0,
 let windowHalfX = window.innerWidth / 2;
 let windowHalfY = window.innerHeight / 2;
 
+const fast = document.querySelector("#fast");
+const thunder = document.querySelector("#thunder");
+
 document.addEventListener("mousemove", onDocumentMouseMove);
 document.addEventListener("click", onDocumentClick);
 
@@ -180,12 +183,18 @@ function render() {
 
   // Animation
   if (!clicked) {
+    thunder.pause();
+    (async () => await fast.play())();
+
     brainAnimation(timer);
     calmCloudAnimation();
     noRainAnimation();
   }
 
   if (clicked) {
+    fast.pause();
+    (async () => await thunder.play())();
+
     brain.traverse(o => {
       if (o.isMesh) o.material = brain.water;
     });

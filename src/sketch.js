@@ -10,11 +10,24 @@ let clicked = false,
     angry: ["marola.ttf", "nervous.ttf", "timesnewarial.ttf", "chinese rocks rg.otf", "SplitOn.ttf", "quickend.ttf"],
     helvetica: ["", " light", " italic", " bold"],
   },
+  fast,
+  thunder,
+  waterfall,
+  flatline,
   i = 0;
 
 const quotes = [];
 
 function preload() {
+  fast = document.querySelector("#fast");
+  fast.volume = 0.7;
+  thunder = document.querySelector("#thunder");
+  thunder.volume = 0.7;
+  waterfall = document.querySelector("#waterfall");
+  waterfall.volume = 0;
+  flatline = document.querySelector("#flatline");
+  flatline.volume = 0;
+
   fonts.angry.forEach((f, ind) => {
     fonts.angry[ind] = loadFont(`../static/fonts/angry/${f}`);
   });
@@ -33,6 +46,16 @@ function setup() {
 function draw() {
   clear();
   background(255, opacity);
+
+  (async () => await waterfall.play())();
+  (async () => await flatline.play())();
+
+  if (opacity >= 255) {
+    thunder.pause();
+    fast.pause();
+  } else {
+    clicked ? (async () => await thunder.play())() : (async () => await fast.play())();
+  }
 
   for (const e of end) {
     textSize(e.size);
@@ -112,10 +135,18 @@ function mouseMoved() {
 function mouseWheel(e) {
   if (e.deltaY > 0) {
     if (opacity < 255) opacity += 3;
+    if (fast.volume > 0) fast.volume -= 0.01;
+    if (thunder.volume > 0) thunder.volume -= 0.01;
+    if (flatline.volume < 0.1) flatline.volume += 0.01;
+    if (waterfall.volume < 0.4) waterfall.volume += 0.01;
   }
   if (e.deltaY < 0) {
     if (opacity > 0) opacity -= 3;
     for (const t of end) if (t.fade > 0) t.fade -= 4;
+    if (fast.volume < 0.7) fast.volume += 0.01;
+    if (thunder.volume < 0.7) thunder.volume += 0.01;
+    if (flatline.volume > 0) flatline.volume -= 0.01;
+    if (waterfall.volume > 0) waterfall.volume -= 0.01;
   }
 }
 
