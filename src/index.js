@@ -239,6 +239,7 @@ function calmCloudAnimation() {
   clouds.forEach(p => {
     p.rotation.z -= 0.00075;
   });
+  flash.power = 0;
 }
 
 function madCloudAnimation() {
